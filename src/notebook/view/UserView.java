@@ -5,6 +5,8 @@ import notebook.model.User;
 import notebook.util.Commands;
 import notebook.util.UserValidator;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class UserView {
@@ -19,7 +21,12 @@ public class UserView {
 
         while (true) {
             String command = prompt("Введите команду: ").toUpperCase();
-            com = Commands.valueOf(command);
+            try {
+                com = Commands.valueOf(command);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Такой команды нет, введите нужную команду или EXIT для выхода");
+                continue;
+            }
             if (com == Commands.EXIT) return;
             switch (com) {
                 case CREATE:
@@ -42,6 +49,14 @@ public class UserView {
                 case UPDATE:
                     String userId = prompt("Enter user id: ");
                     userController.updateUser(userId, createUser());
+                    break;
+                case DELETE:
+                    String userIdDelete = prompt("Введите Id абонента которого надо удалить: ");
+                    userController.deleteUser(userIdDelete);
+                    System.out.printf("Абонент с Id %s удален\n", userIdDelete);
+                    break;
+                case LIST:
+                    System.out.println(userController.listCommand());
             }
         }
     }
@@ -53,7 +68,7 @@ public class UserView {
     }
 
     private User createUser() {
-        UserValidator uv = new UserValidator();
+//        UserValidator uv = new UserValidator();
         String firstName = checkLine(prompt("Имя: "));
         String lastName = checkLine(prompt("Фамилия: "));
         String phone = checkLine(prompt("Номер телефона: "));
