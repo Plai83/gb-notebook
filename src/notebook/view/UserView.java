@@ -57,6 +57,7 @@ public class UserView {
                     break;
                 case LIST:
                     System.out.println(userController.listCommand());
+                    break;
             }
         }
     }
