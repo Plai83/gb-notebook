@@ -34,7 +34,7 @@ public class UserView {
                     userController.saveUser(u);
                     break;
                 case READ:
-                    String id = prompt("Идентификатор пользователя: ");
+                    String id = prompt("Идентификатор абонента: ");
                     try {
                         User user = userController.readUser(Long.parseLong(id));
                         System.out.println(user);
@@ -45,6 +45,7 @@ public class UserView {
                     break;
                 case READALL:
                     System.out.println(userController.readALl());
+
                     break;
                 case UPDATE:
                     String userId = prompt("Enter user id: ");
@@ -87,4 +88,5 @@ public class UserView {
             return checkLine(str);
         }
     }
+
 }
